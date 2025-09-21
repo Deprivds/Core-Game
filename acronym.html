@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Acronym Expansion Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: url("cube.gif");
+      background-size: cover;
+      color: white;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column; /* ✅ fixed typo */
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      position: relative;
+    }
+    h1 {
+      color: #38bdf8;
+      margin-bottom: 20px;
+    }
+    .lock-container {
+      display: flex;
+      flex-direction: row; /* ✅ row layout */
+      gap: 1.5rem;
+      margin: 20px 0;
+    }
+    .lock {
+      background: #1f2937;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 8px #38bdf8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 10px;
+      width: 150px;
+    }
+    label {
+      font-size: 1.4rem;
+      color: #38bdf8;
+    }
+    img {
+      width: 100px;
+      height: 180px;
+      border-radius: 8px;
+      box-shadow: 0 0 5px #000;
+    }
+    input {
+      width: 95%;
+      padding: 8px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      text-align: center;
+      outline: none;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      background: #38bdf8;
+      color: #111827;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0ea5e9;
+    }
+    #clue {
+      margin-top: 10px;
+      font-size: 1rem;
+      color: #facc15;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="lock-container" id="lockContainer"></div>
+
+  <button onclick="checkAcronym()">Check Answers</button>
+  <div id="clue">💡 Clue: The answer might be in the fragments!</div>
+  <div id="result"></div>
+
+  <script>
+  // ✅ Use array so duplicate letters are allowed
+  const acronym = [
+    { letter: "C", answer: "Computer", img: "C.png" },
+    { letter: "S", answer: "Science", img: "S.png" },
+    { letter: "S", answer: "Society", img: "S.png" }
+  ];
+
+  function setupLock() {
+    const container = document.getElementById("lockContainer");
+    container.innerHTML = "";
+
+    acronym.forEach(item => {
+      const lockDiv = document.createElement("div");
+      lockDiv.className = "lock";
+
+      lockDiv.innerHTML = `
+        <label></label>
+        ${item.img ? `<img src="${item.img}" alt="${item.letter} image">` : ""}
+        <input type="text" placeholder="${item.letter} stands for?" data-answer="${item.answer.toLowerCase()}">
+      `;
+
+      container.appendChild(lockDiv);
+    });
+  }
+
+  function checkAcronym() {
+    const inputs = document.querySelectorAll(".lock input");
+    let correct = true;
+
+    inputs.forEach(inp => {
+      const expected = inp.getAttribute("data-answer");
+      const given = inp.value.trim().toLowerCase();
+      if (given !== expected) {
+        correct = false;
+      }
+    });
+
+    document.getElementById("result").innerHTML = correct
+      ? ""
+      : "❌ Wrong. Try again!";
+        if (correct) {
+      setTimeout(() => {
+        window.location.href = "victory.html";
+      }, 5000); // wait 1 second before redirect
+    }
+  }
+
+  // Start game
+  setupLock();
+    </script>
+    <!-- Hidden Admin Button -->
+    <button id="adminBtn"></button>
+    <script>
+    document.getElementById("adminBtn").addEventListener("click", () => {
+        window.location.href = "admin.html";
+    });
+
+    // Keyboard shortcut (aaa) also works
+    let keyBuffer = "";
+    window.addEventListener("keydown", (e) => {
+        keyBuffer += e.key.toLowerCase();
+        if (keyBuffer.endsWith("aaa")) {
+        window.location.href = "admin.html";
+        }
+        if (keyBuffer.length > 10) keyBuffer = "";
+    });
+    </script>
+
+    <style>
+    #adminBtn {
+        position: fixed;
+        bottom: 5px;
+        right: 5px;
+        opacity: 0;  /* invisible but clickable */
+        width: 50px;
+        height: 50px;
+        border: none;
+        background: none;
+        cursor: pointer;
+    }
+    </style>
+</body>
+</html>
