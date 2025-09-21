@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Game 1 - Photo Order</title>
+
+  <!-- =========================
+       GLOBAL STYLES (Editable)
+  ========================== -->
+  <style>
+    :root {
+      /* 🎨 Colors */
+      --bg-color: #0f1724;
+      --text-color: white;
+      --button-bg: #2563eb;
+      --button-hover: #1d4ed8;
+      --success-bg: #064e3b;
+      --success-text: #bbf7d0;
+      --shadow-color: rgba(0,0,0,0.5);
+
+      /* 🔤 Font & Text */
+      --font-family: "Arial", sans-serif;
+      --heading-size: 28px;
+      --body-size: 20px;
+      --number-size: 22px;
+
+    }
+
+    body {
+      font-family: var(--font-family);
+      background: url("bg.gif");
+      background-size: cover;
+      color: var(--text-color);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      position: relative;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: var(--heading-size);
+    }
+
+    .board {
+      display: flex;
+      gap: 20px;
+    }
+    .tile {
+      width: 500px;
+      height: 630px;
+      border-radius: 15px;
+      overflow: hidden;
+      position: relative;
+      cursor: grab;
+      box-shadow: 0 8px 20px var(--shadow-color);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .tile.dragging {
+      opacity: 0.6;
+      transform: scale(1.1);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.7);
+    }
+    .tile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .number {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: var(--number-size);
+      font-weight: bold;
+    }
+
+    .controls {
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background: var(--button-bg);
+      color: white;
+      cursor: pointer;
+      font-size: var(--body-size);
+    }
+    button:hover { background: var(--button-hover); }
+
+    .success {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 8px;
+      background: var(--success-bg);
+      color: var(--success-text);
+      font-size: var(--body-size);
+    }
+
+    /* Hidden Admin Button */
+    #adminBtn {
+      position: fixed;
+      bottom: 5px;
+      right: 5px;
+      opacity: 0;  /* invisible but clickable */
+      width: 50px;
+      height: 50px;
+      border: none;
+      background: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body> <!-- ✅ Proper body starts here -->
+
+  <!-- Hidden Admin Button -->
+  <button id="adminBtn"></button>
+
+  <!-- =========================
+       GAME TITLE
+  ========================== -->
+
+  <!-- =========================
+       GAME BOARD
+  ========================== -->
+  <div class="board" id="board"></div>
+
+  <!-- =========================
+       CONTROLS
+  ========================== -->
+  <div class="controls">
+    <button id="check">Check Order</button>
+  </div>
+
+  <!-- =========================
+       RESULT DISPLAY
+  ========================== -->
+  <div id="result"></div>
+
+  <!-- =========================
+       GAME SCRIPT
+  ========================== -->
+  <script>
+    // 🔹 Hidden Admin Redirect
+    document.getElementById("adminBtn").addEventListener("click", () => {
+      window.location.href = "admin.html";
+    });
+
+    let keyBuffer = "";
+    window.addEventListener("keydown", (e) => {
+      keyBuffer += e.key.toLowerCase();
+      if (keyBuffer.endsWith("aaa")) {
+        window.location.href = "admin.html";
+      }
+      if (keyBuffer.length > 10) keyBuffer = "";
+    });
+
+    // 🔹 Define photo tiles
+    const photos = [
+      {src: "C.png", number: "1"}, // C
+      {src: "S.png", number: "2"}, // S
+      {src: "S.png", number: "3"}  // S
+    ];
+
+    const board = document.getElementById("board");
+    const result = document.getElementById("result");
+
+    // 🔹 Scramble order on load
+    const scrambled = [...photos].sort(() => Math.random() - 0.5);
+    scrambled.forEach(p => {
+      const tile = document.createElement("div");
+      tile.className = "tile";
+      tile.draggable = true;
+      tile.dataset.number = p.number;
+      tile.innerHTML = `<img src="${p.src}" alt="photo">`;
+      board.appendChild(tile);
+    });
+
+    // 🔹 Drag & drop handlers
+    let draggedTile = null;
+    document.querySelectorAll(".tile").forEach(tile => {
+      tile.addEventListener("dragstart", () => {
+        draggedTile = tile;
+        tile.classList.add("dragging");
+      });
+      tile.addEventListener("dragend", () => {
+        draggedTile = null;
+        tile.classList.remove("dragging");
+      });
+    });
+
+    board.addEventListener("dragover", e => e.preventDefault());
+    board.addEventListener("drop", e => {
+      e.preventDefault();
+      const target = e.target.closest(".tile");
+      if (target && target !== draggedTile) {
+        const draggedIndex = [...board.children].indexOf(draggedTile);
+        const targetIndex = [...board.children].indexOf(target);
+
+        if (draggedIndex > targetIndex) {
+          board.insertBefore(draggedTile, target);
+        } else {
+          board.insertBefore(draggedTile, target.nextSibling);
+        }
+      }
+    });
+
+    // 🔹 Check button
+    document.getElementById("check").addEventListener("click", () => {
+      const order = [...board.children].map(c => c.dataset.number).join("-");
+
+      // Valid orders: 1-2-3 or 1-3-2
+      if (order === "1-2-3" || order === "1-3-2") {
+        result.innerHTML = `<div class="success">✅ Correct! The order spells CSS</div>`;
+        setTimeout(() => {
+          window.location.href = "binary.html";
+        }, 1000); // wait 1 second before redirect
+      } else {
+        result.innerHTML = `<div>❌ Wrong order. Try again!</div>`;
+      }
+    });
+  </script>
+</body>
+</html>
