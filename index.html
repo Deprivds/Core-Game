@@ -210,12 +210,10 @@
       if (expectedType === "letter") {
         if (val !== correctLetter && val !== correctNumber) {
           correct = false;
-          feedback += `Position ${i + 1} should be a LETTER.<br>`;
         }
       } else {
         if (val !== correctNumber && val !== correctLetter) {
           correct = false;
-          feedback += `Position ${i + 1} should be a NUMBER.<br>`;
         }
       }
     });
@@ -240,4 +238,5 @@
   </script>
 </body>
 </html>
+
 
