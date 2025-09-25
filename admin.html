@@ -13,8 +13,6 @@
       height: 100vh;
       box-sizing: border-box;
     }
-
-    /* Floating admin panel */
     .floating-frame {
       position: fixed;
       top: 20px;
@@ -26,143 +24,43 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.5);
       z-index: 100;
     }
-
-    h1 {
-      margin-top: 0;
-      font-size: 20px;
-      text-align: center;
-      color: #38bdf8;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
+    h1 { margin-top: 0; font-size: 20px; text-align: center; color: #38bdf8; }
+    .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 20px; }
     .binary-btn {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 10px;
-      background: #2563eb;
-      border: none;
-      border-radius: 8px;
-      color: white;
-      cursor: pointer;
-      transition: 0.2s;
-      text-align: center;
-      box-shadow: 0 0 6px #1e40af inset;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 10px; background: #2563eb; border: none; border-radius: 8px; color: white;
+      cursor: pointer; transition: 0.2s; text-align: center; box-shadow: 0 0 6px #1e40af inset;
     }
-    .binary-btn .binary {
-      font-size: 14px;
-      font-weight: bold;
-    }
-    .binary-btn .name {
-      font-size: 12px;
-      color: #facc15;
-      margin-top: 2px;
-    }
-    .binary-btn .label {
-      font-size: 12px;
-      color: #38bdf8;
-      margin-top: 2px;
-    }
+    .binary-btn .binary { font-size: 14px; font-weight: bold; }
+    .binary-btn .name { font-size: 12px; color: #facc15; margin-top: 2px; }
+    .binary-btn .label { font-size: 12px; color: #38bdf8; margin-top: 2px; }
     .binary-btn:hover { background: #1d4ed8; }
-    .binary-btn.selected {
-      background: #16a34a;
-      box-shadow: 0 0 10px #22c55e;
-    }
-
-    #selectedList {
-      font-size: 14px;
-      line-height: 1.6;
-      margin-bottom: 15px;
-      padding: 10px;
-      background: #1e293b;
-      border-radius: 8px;
-    }
-
-    #finalAnswer {
-      font-size: 16px;
-      font-weight: bold;
-      text-align: center;
-      padding: 10px;
-      border-radius: 8px;
-      background: #1e293b;
-      color: #facc15;
-      margin-bottom: 20px;
-    }
-
-    .answer-settings {
-      margin-bottom: 20px;
-      padding: 10px;
-      background: #1e293b;
-      border-radius: 8px;
-    }
-    .answer-settings h2 {
-      margin: 0 0 10px 0;
-      font-size: 16px;
-      color: #38bdf8;
-    }
-    .answer-row {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 8px;
-    }
-    select {
-      padding: 5px;
-      border-radius: 4px;
-      background: #0f172a;
-      color: white;
-      border: 1px solid #475569;
-    }
-
-    .buttons {
-      display: flex;
-      gap: 5px;
-      flex-wrap: wrap;
-      justify-content: space-between;
-    }
-    .buttons button {
-      flex: 1;
-      padding: 10px;
-      border: none;
-      border-radius: 6px;
-      color: white;
-      cursor: pointer;
-      font-size: 14px;
-    }
-    button.save { background: #16a34a; }
-    button.save:hover { background: #15803d; }
-    button.reset { background: #f87171; }
-    button.reset:hover { background: #dc2626; }
-    button.back { background: #64748b; }
-    button.back:hover { background: #475569; }
-    button.main-game { background: #38bdf8; color: #111827; }
-    button.main-game:hover { background: #0ea5e9; }
-    button.game { background: #38bdf8; color: #111827; }
-    button.game:hover { background: #0ea5e9; }
-
+    .binary-btn.selected { background: #16a34a; box-shadow: 0 0 10px #22c55e; }
+    #selectedList { font-size: 14px; line-height: 1.6; margin-bottom: 15px; padding: 10px; background: #1e293b; border-radius: 8px; }
+    #finalAnswer { font-size: 16px; font-weight: bold; text-align: center; padding: 10px; border-radius: 8px; background: #1e293b; color: #facc15; margin-bottom: 20px; }
+    .answer-settings { margin-bottom: 20px; padding: 10px; background: #1e293b; border-radius: 8px; }
+    .answer-settings h2 { margin: 0 0 10px 0; font-size: 16px; color: #38bdf8; }
+    .answer-row { display: flex; justify-content: space-between; margin-bottom: 8px; }
+    select { padding: 5px; border-radius: 4px; background: #0f172a; color: white; border: 1px solid #475569; }
+    .buttons { display: flex; gap: 5px; flex-wrap: wrap; justify-content: space-between; }
+    .buttons button { flex: 1; padding: 10px; border: none; border-radius: 6px; color: white; cursor: pointer; font-size: 14px; }
+    button.save { background: #16a34a; } button.save:hover { background: #15803d; }
+    button.reset { background: #f87171; } button.reset:hover { background: #dc2626; }
+    button.back { background: #64748b; } button.back:hover { background: #475569; }
+    button.main-game { background: #38bdf8; color: #111827; } button.main-game:hover { background: #0ea5e9; }
+    button.game { background: #38bdf8; color: #111827; } button.game:hover { background: #0ea5e9; }
   </style>
 </head>
 <body>
   <div class="floating-frame">
     <h1>Admin Panel - Pick 4 Binary Codes</h1>
-
     <div class="grid" id="grid"></div>
-
     <div id="selectedList">Selected Codes: (none)</div>
     <div id="finalAnswer">Final Answer: (none)</div>
-
-    <!-- Editable Answer Settings -->
     <div class="answer-settings" id="answerSettings" style="display:none;">
       <h2>Answer Mode Settings</h2>
       <div id="answerRows"></div>
     </div>
-
     <div class="buttons">
       <button class="game" onclick="window.location.href='index.html'">Binary Game</button>
       <button class="game" onclick="window.location.href='acronym.html'">Acronym Expansion</button>
@@ -174,21 +72,11 @@
 
   <script>
     const allowedCodes = ["0011","1001","1010","1100","0101","0111","1000","1011","1101","1110"];
-
-    // 👇 Add names for each binary
     const codeNames = {
-      "0011": "BOSS Jobs",
-      "1001": "Hangry Mouth",
-      "1010": "Performative Female",
-      "1100": "Arwhen",
-      "0101": "UmamusonMEH",
-      "0111": "Sigmatisim",
-      "1000": "Kimerasushi",
-      "1011": "Joanomaly",
-      "1101": "Chismuelyn",
-      "1110": "Masarap na Emoji"
+      "0011": "BOSS Jobs","1001": "Hangry Mouth","1010": "Performative Female","1100": "Arwhen",
+      "0101": "UmamusonMEH","0111": "Sigmatisim","1000": "Kimerasushi","1011": "Joanomaly",
+      "1101": "Chismuelyn","1110": "Masarap na Emoji"
     };
-
     const codes = allowedCodes.map(binary => {
       const decimal = parseInt(binary, 2);
       const alphabet = String.fromCharCode(64 + decimal);
@@ -204,7 +92,6 @@
 
     let selected = [];
 
-    // Build binary buttons grid
     codes.forEach(code => {
       const btn = document.createElement("button");
       btn.classList.add("binary-btn");
@@ -228,7 +115,7 @@
           alert("⚠️ You must pick exactly 4 codes. Deselect one first.");
           return;
         }
-        selected.push({...code, expects: "letter"});
+        selected.push({...code, type: "letter"}); // FIXED: use type instead of expects
         btn.classList.add("selected");
       }
       updateSelectedList();
@@ -249,7 +136,7 @@
 
       if (selected.length === 4) {
         renderAnswerSettings();
-        const prettyAnswer = selected.map(c => c.expects === "number" ? c.decimal : c.alphabet).join(" ");
+        const prettyAnswer = selected.map(c => c.type === "number" ? c.decimal : c.alphabet).join(" ");
         finalAnswerBox.innerHTML = `✅ Final Answer: <span style="color:#4ade80">${prettyAnswer}</span>`;
       } else {
         finalAnswerBox.textContent = "Final Answer: (waiting for 4 selections)";
@@ -266,8 +153,8 @@
         row.innerHTML = `
           <span>${c.binary} → ${c.decimal} (${c.alphabet}) → ${c.name}</span>
           <select data-index="${i}">
-            <option value="letter" ${c.expects==="letter" ? "selected":""}>Letter (${c.alphabet})</option>
-            <option value="number" ${c.expects==="number" ? "selected":""}>Number (${c.decimal})</option>
+            <option value="letter" ${c.type==="letter" ? "selected":""}>Letter (${c.alphabet})</option>
+            <option value="number" ${c.type==="number" ? "selected":""}>Number (${c.decimal})</option>
           </select>
         `;
         answerRows.appendChild(row);
@@ -276,23 +163,27 @@
       answerRows.querySelectorAll("select").forEach(sel => {
         sel.addEventListener("change", e => {
           const idx = e.target.dataset.index;
-          selected[idx].expects = e.target.value;
+          selected[idx].type = e.target.value; // FIXED
           updateSelectedList();
         });
       });
     }
 
-    // Save codes
     document.getElementById("saveBtn").addEventListener("click", () => {
-      if (selected.length !== 4) {
+    if (selected.length !== 4) {
         alert("⚠️ You must select exactly 4 codes before saving.");
         return;
-      }
-      localStorage.setItem("selectedCodes", JSON.stringify(selected));
-      alert("✅ Codes + Answer Settings saved!");
+    }
+    localStorage.setItem("selectedCodes", JSON.stringify(selected));
+
+    // ✅ Save final answer separately in localStorage
+    const finalAnswer = selected.map(c => c.type === "number" ? c.decimal : c.alphabet).join("");
+    localStorage.setItem("finalAnswer", finalAnswer);
+
+    alert("✅ Codes + Answer Settings saved!");
     });
 
-    // Reset
+
     document.getElementById("resetBtn").addEventListener("click", () => {
       selected = [];
       document.querySelectorAll(".binary-btn").forEach(btn => btn.classList.remove("selected"));
@@ -300,12 +191,10 @@
       localStorage.removeItem("selectedCodes");
     });
 
-    // Back buttons
     document.getElementById("mainGameBtn").addEventListener("click", () => {
       window.location.href = "index.html";
     });
 
-    // Restore previous selection
     window.addEventListener("load", () => {
       const saved = localStorage.getItem("selectedCodes");
       if (saved) {
