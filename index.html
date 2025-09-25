@@ -190,53 +190,58 @@
   }
 
   function checkLock() {
-    const inputs = document.querySelectorAll(".lock input");
-    let correct = true;
-    let feedback = "";
+  const inputs = document.querySelectorAll(".lock input");
+  let correct = true;
+  let feedback = "";
 
-    // Load final answer string from admin
-    const finalAnswer = localStorage.getItem("finalAnswer") || "";
-    let playerAnswer = "";
+  // Load final answer string from admin
+  const finalAnswer = localStorage.getItem("finalAnswer") || "";
+  let playerAnswer = "";
 
-    inputs.forEach((inp, i) => {
-      const val = inp.value.trim().toUpperCase();
-      const expectedType = lockData[i].type;
-      const correctLetter = lockData[i].letter;
-      const correctNumber = lockData[i].decimal;
+  inputs.forEach((inp, i) => {
+    const val = inp.value.trim().toUpperCase();
+    const expectedType = lockData[i].type;
+    const correctLetter = lockData[i].letter;
+    const correctNumber = lockData[i].decimal;
 
-      // build playerAnswer for strict matching
-      playerAnswer += val;
+    // build playerAnswer for strict matching
+    playerAnswer += val;
 
-      if (expectedType === "letter") {
-        if (val !== correctLetter && val !== correctNumber) {
-          correct = false;
-        }
-      } else {
-        if (val !== correctNumber && val !== correctLetter) {
-          correct = false;
-        }
+    if (expectedType === "letter") {
+      if (val !== correctLetter && val !== correctNumber) {
+        correct = false;
       }
-    });
-
-    // Enforce exact match with saved finalAnswer
-    if (playerAnswer !== finalAnswer) {
-      correct = false;
-    }
-
-    if (correct) {
-      document.getElementById("result").innerHTML = "Lock Unlocked!";
-      setTimeout(() => {
-        window.location.href = "acronym.html";
-      }, 1000);
     } else {
-      document.getElementById("result").innerHTML = "❌ Wrong code.<br>" + feedback;
+      if (val !== correctNumber && val !== correctLetter) {
+        correct = false;
+      }
     }
+  });
+
+  // Enforce exact match with saved finalAnswer
+  if (playerAnswer !== finalAnswer) {
+    correct = false;
   }
 
-  // start
+  if (correct) {
+    document.getElementById("result").innerHTML = "Lock Unlocked!";
+    setTimeout(() => {
+      window.location.href = "acronym.html";
+    }, 1000);
+  } else {
+    document.getElementById("result").innerHTML = "❌ Wrong code.";
+    
+    // 🔹 Clear all inputs if wrong
+    inputs.forEach(inp => inp.value = "");
+    // 🔹 Set focus back to the first input
+    if (inputs.length > 0) inputs[0].focus();
+  }
+}
+ // start
   setupLock();
   </script>
 </body>
 </html>
+
 
 
